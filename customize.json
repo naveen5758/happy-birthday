@@ -1,12 +1,12 @@
 {
   "greeting": "Hey",
-  "name": "Beautiful Wife....",
+  "name": "Beautiful ....",
   "greetingText": "",
   "wishText": "\uD83D\uDE09",
   "imagePath": "img/weegen2.png",
   "image2Path": "img/weegen.png",
   "text1": "It's your birthday!!! \uD83D\uDE00",
-  "textInChatBox": "Happy birthday to you!! Many many happy blah...",
+  "textInChatBox": "Happy birthday to you!! Many many happy blah blah...",
   "sendButtonLabel": "Send",
   "text2": "That's what I was going to do.",
   "text3": "But then I stopped.",
@@ -17,7 +17,7 @@
   "smiley": "\uD83D\uDE01",
   "bigTextPart1": "S",
   "bigTextPart2": "O",
-  "wishHeading": "Happy Birthday baby!! Kannalu...Nannalu...",
+  "wishHeading": "Happy Birthday Mardhal!!!",
   "outroText": "Okay, now come back and tell me if you liked it.",
   "replayText": "Or click, if you want to watch it again.",
   "outroSmiley": "\uD83D\uDE0A"
