@@ -1,15 +1,36 @@
+/* Import Fonts */
+@import url('https://fonts.googleapis.com/css?family=Work+Sans:300,400');
+
+/* Box Sizing */
 html {
   box-sizing: border-box;
 }
 
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+/* Body Styling */
 body {
   margin: 0;
   font-family: "Work Sans", sans-serif;
+  /* Added background animation */
+  background: linear-gradient(120deg, #ffecd2, #fcb69f);
+  background-size: 400% 400%;
+  animation: bgColorChange 15s ease infinite;
 }
 
+/* Background Color Change Animation */
+@keyframes bgColorChange {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Container Styling */
 .container {
   height: 100vh;
-  width: 100vh;
+  width: 100vw; /* Changed from 100vh to 100vw for full viewport width */
   margin: 0 auto;
   text-align: center;
   visibility: hidden;
@@ -17,11 +38,21 @@ body {
   overflow: hidden;
 }
 
+/* Ensure child divs are positioned correctly */
+.container > div {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 20vh;
+}
+
+/* Specific Styling for Div Six */
 .container div.six {
   top: 10vh;
   z-index: 1;
 }
 
+/* Styling for Div Seven and Eight */
 .container div.seven,
 .container div.eight {
   width: 100vw;
@@ -30,33 +61,32 @@ body {
   top: 0;
 }
 
-.container > div {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 20vh;
-}
-
+/* Heading Styles */
 .one {
   font-size: 4.5rem;
-}
-
-.one > img {
-  vertical-align: middle;
-  margin-bottom: 10px;
-  max-width: 100%;
-  height: auto;
+  opacity: 0;
+  animation: fadeIn 2s forwards 1s;
 }
 
 .two {
   font-size: 1.2rem;
   font-weight: lighter;
+  opacity: 0;
+  animation: fadeIn 2s forwards 2s;
 }
 
 .three {
   font-size: 3rem;
+  opacity: 0;
+  animation: fadeIn 2s forwards 3s;
 }
 
+/* Fade-In Animation */
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+/* Text Box Styling */
 .four .text-box {
   width: 600px;
   margin: 0 auto;
@@ -64,6 +94,8 @@ body {
   border-radius: 5px;
   padding: 10px;
   position: relative;
+  opacity: 0;
+  animation: fadeIn 2s forwards 4s;
 }
 
 .text-box p {
@@ -83,43 +115,69 @@ body {
   background-color: rgb(21, 161, 237);
   padding: 5px 8px;
   border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
+.text-box .fake-btn:hover {
+  background-color: rgb(10, 131, 217);
+}
+
+/* Idea Text Styling */
 .five p {
   font-size: 2rem;
   position: absolute;
   left: 0;
   right: 0;
+  opacity: 0;
 }
 
-.idea-3 strong {
-  padding: 3px 5px;
-  border-radius: 3px;
-  display: inline-block;
+.five .idea-1 {
+  animation: fadeIn 2s forwards 5s;
+}
+
+.five .idea-2 {
+  animation: fadeIn 2s forwards 6s;
+}
+
+.five .idea-3 {
+  animation: fadeIn 2s forwards 7s;
+}
+
+.five .idea-4 {
+  animation: fadeIn 2s forwards 8s;
 }
 
 .five .idea-5 {
   font-size: 4rem;
+  animation: fadeIn 2s forwards 9s;
 }
 
-.idea-5 span,
-.idea-6 span,
-.wish-hbd span {
-  display: inline-block;
-}
-
-.idea-6 span {
+.five .idea-6 {
   font-size: 15rem;
+  animation: fadeIn 2s forwards 10s;
 }
 
+/* Strong Tag in Idea-3 */
+.idea-3 strong {
+  padding: 3px 5px;
+  border-radius: 3px;
+  display: inline-block;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Image and Hat Styling */
 .six {
   position: relative;
+  opacity: 0;
+  animation: fadeIn 2s forwards 11s;
 }
 
-.six img {
-  display: inline-block;
-  max-width: 100%;
-  height: auto;
+.six img.weegen-dp {
+  width: 150px;
+  border-radius: 50%;
+  margin-top: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 .six .hat {
@@ -127,11 +185,46 @@ body {
   width: 80px;
   top: -35px;
   left: 41.5%;
+  /* Added animation */
+  animation: bounce 2s infinite;
 }
 
+/* Bounce Animation for Hat */
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-30px);
+  }
+  60% {
+    transform: translateY(-15px);
+  }
+}
+
+/* Wish Text Styling */
+.wish-hbd {
+  font-size: 3em;
+  margin: 0;
+  text-transform: uppercase;
+  opacity: 0;
+  animation: fadeIn 2s forwards 12s;
+}
+
+.wish h5 {
+  font-weight: lighter;
+  font-size: 2rem;
+  margin: 10px 0 0;
+  opacity: 0;
+  animation: fadeIn 2s forwards 13s;
+}
+
+/* Balloon Styling */
 .baloons img {
   display: inline-block;
   position: absolute;
+  width: 80px;
+  animation: float 6s ease-in-out infinite;
 }
 
 .baloons img:nth-child(even) {
@@ -146,89 +239,93 @@ body {
   left: 30%;
 }
 
+/* Float Animation for Balloons */
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0); }
+}
+
+/* Circle Animation */
 .eight svg {
+  fill: #ffb88c;
   width: 25px;
   position: absolute;
   top: 0;
   left: 0;
   visibility: hidden;
   z-index: -1;
+  opacity: 0;
+  animation: rotate 5s linear infinite, fadeIn 2s forwards 14s;
 }
 
-.eight svg:nth-child(1) {
-  top: 7vh;
-  left: 5vw;
-  fill: #bd6ecf;
+.eight svg:nth-child(1) { top: 7vh; left: 5vw; fill: #bd6ecf; }
+.eight svg:nth-child(2) { top: 23vh; left: 35vw; fill: #7dd175; }
+.eight svg:nth-child(3) { top: 33vh; left: 23vw; fill: #349d8b; }
+.eight svg:nth-child(4) { top: 43vh; left: 57vw; fill: #347a9d; }
+.eight svg:nth-child(5) { top: 68vh; left: 7vw; fill: #c66053; }
+.eight svg:nth-child(6) { top: 42vh; left: 77vw; fill: #bfaa40; }
+.eight svg:nth-child(7) { top: 68vh; left: 83vw; fill: #e3bae8; }
+.eight svg:nth-child(8) { top: 86vh; left: 37vw; fill: #8762cb; }
+.eight svg:nth-child(9) { top: 94vh; left: 87vw; fill: #9a90da; }
+
+/* Rotate Animation for Circles */
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
-.eight svg:nth-child(2) {
-  top: 23vh;
-  left: 35vw;
-  fill: #7dd175;
-}
-
-.eight svg:nth-child(3) {
-  top: 33vh;
-  left: 23vw;
-  fill: #349d8b;
-}
-
-.eight svg:nth-child(4) {
-  top: 43vh;
-  left: 57vw;
-  fill: #347a9d;
-}
-
-.eight svg:nth-child(5) {
-  top: 68vh;
-  left: 7vw;
-  fill: #c66053;
-}
-
-.eight svg:nth-child(6) {
-  top: 42vh;
-  left: 77vw;
-  fill: #bfaa40;
-}
-
-.eight svg:nth-child(7) {
-  top: 68vh;
-  left: 83vw;
-  fill: #e3bae8;
-}
-
-.eight svg:nth-child(8) {
-  top: 86vh;
-  left: 37vw;
-  fill: #8762cb;
-}
-
-.eight svg:nth-child(9) {
-  top: 94vh;
-  left: 87vw;
-  fill: #9a90da;
-}
-
-.wish-hbd {
-  font-size: 3em;
-  margin: 0;
-  text-transform: uppercase;
-}
-
-.wish h5 {
-  font-weight: lighter;
-  font-size: 2rem;
-  margin: 10px 0 0;
-}
-
+/* Outro Text Styling */
 .nine p {
   font-size: 2rem;
   font-weight: lighter;
+  opacity: 0;
+  animation: fadeIn 2s forwards 15s;
 }
 
 #replay {
   z-index: 3;
   cursor: pointer;
+  color: #fff;
+  text-decoration: underline;
+  opacity: 0;
+  animation: fadeIn 2s forwards 16s;
+}
+
+.last-smile {
+  font-size: 2.5rem;
+  opacity: 0;
+  animation: fadeIn 2s forwards 17s;
+}
+
+.weegen2-dp {
+  width: 120px;
+  border-radius: 50%;
+  margin-top: 1rem;
+  opacity: 0;
+  animation: fadeIn 2s forwards 18s;
+}
+
+/* Unmute Button Styling */
+.unmute-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: #ff5e62;
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 0.5rem 1.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s ease;
+  opacity: 0; /* Initially hidden */
+  animation: fadeIn 2s forwards 19s;
+}
+
+.unmute-btn:hover {
+  background: #ff1a2c;
 }
 
 /* Media Queries */
@@ -296,24 +393,3 @@ body {
     font-weight: lighter;
   }
 }
-
-/* New Unmute Button */
-.unmute-btn {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: #ff5e62;
-  color: #fff;
-  border: none;
-  border-radius: 50px;
-  padding: 0.5rem 1.5rem;
-  cursor: pointer;
-  font-size: 1rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  transition: background 0.3s ease;
-}
-
-.unmute-btn:hover {
-  background: #ff1a2c;
-}
-
