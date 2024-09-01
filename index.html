@@ -1,559 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auto Play Audio</title>
-    <style>
-        /* Box Sizing */
-html {
-  box-sizing: border-box;
-}
-
-*, *:before, *:after {
-  box-sizing: inherit;
-}
-
-/* Body Styling */
-body {
-  margin: 0;
-  font-family: "Work Sans", sans-serif;
-  /* Added background animation */
-  background: linear-gradient(120deg, #ffecd2, #fcb69f);
-  background-size: 400% 400%;
-  animation: bgColorChange 15s ease infinite;
-}
-
-/* Background Color Change Animation */
-@keyframes bgColorChange {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* Container Styling */
-.container {
-  height: 100vh;
-  width: 100vw; /* Changed from 100vh to 100vw for full viewport width */
-  margin: 0 auto;
-  text-align: center;
-  visibility: hidden;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Ensure child divs are positioned correctly */
-.container > div {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 20vh;
-}
-
-/* Specific Styling for Div Six */
-.container div.six {
-  top: 10vh;
-  z-index: 1;
-}
-
-/* Styling for Div Seven and Eight */
-.container div.seven,
-.container div.eight {
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-}
-
-/* Heading Styles */
-.one {
-  font-size: 4.5rem;
-  opacity: 0;
-  animation: fadeIn 2s forwards 1s;
-}
-
-.two {
-  font-size: 1.2rem;
-  font-weight: lighter;
-  opacity: 0;
-  animation: fadeIn 2s forwards 2s;
-}
-
-.three {
-  font-size: 3rem;
-  opacity: 0;
-  animation: fadeIn 2s forwards 3s;
-}
-
-/* Fade-In Animation */
-@keyframes fadeIn {
-  to { opacity: 1; }
-}
-
-/* Text Box Styling */
-.four .text-box {
-  width: 600px;
-  margin: 0 auto;
-  border: 3px solid #aaa;
-  border-radius: 5px;
-  padding: 10px;
-  position: relative;
-  opacity: 0;
-  animation: fadeIn 2s forwards 4s;
-}
-
-.text-box p {
-  margin: 0;
-  text-align: left;
-}
-
-.text-box span {
-  visibility: hidden;
-}
-
-.text-box .fake-btn {
-  position: absolute;
-  right: 5px;
-  bottom: 5px;
-  color: #fff;
-  background-color: rgb(21, 161, 237);
-  padding: 5px 8px;
-  border-radius: 3px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.text-box .fake-btn:hover {
-  background-color: rgb(10, 131, 217);
-}
-
-/* Idea Text Styling */
-.five p {
-  font-size: 2rem;
-  position: absolute;
-  left: 0;
-  right: 0;
-  opacity: 0;
-}
-
-.five .idea-1 {
-  animation: fadeIn 2s forwards 5s;
-}
-
-.five .idea-2 {
-  animation: fadeIn 2s forwards 6s;
-}
-
-.five .idea-3 {
-  animation: fadeIn 2s forwards 7s;
-}
-
-.five .idea-4 {
-  animation: fadeIn 2s forwards 8s;
-}
-
-.five .idea-5 {
-  font-size: 4rem;
-  animation: fadeIn 2s forwards 9s;
-}
-
-.five .idea-6 {
-  font-size: 15rem;
-  animation: fadeIn 2s forwards 10s;
-}
-
-/* Strong Tag in Idea-3 */
-.idea-3 strong {
-  padding: 3px 5px;
-  border-radius: 3px;
-  display: inline-block;
-  background-color: rgba(255, 255, 255, 0.3);
-}
-
-/* Image and Hat Styling */
-.six {
-  position: relative;
-  opacity: 0;
-  animation: fadeIn 2s forwards 11s;
-}
-
-.six img.weegen-dp {
-  width: 150px;
-  border-radius: 50%;
-  margin-top: 2rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-}
-
-.six .hat {
-  position: absolute;
-  width: 80px;
-  top: -35px;
-  left: 41.5%;
-  /* Added animation */
-  animation: bounce 2s infinite;
-}
-
-/* Bounce Animation for Hat */
-@keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(-30px);
-  }
-  60% {
-    transform: translateY(-15px);
-  }
-}
-
-/* Wish Text Styling */
-.wish-hbd {
-  font-size: 3em;
-  margin: 0;
-  text-transform: uppercase;
-  opacity: 0;
-  animation: fadeIn 2s forwards 12s;
-}
-
-.wish h5 {
-  font-weight: lighter;
-  font-size: 2rem;
-  margin: 10px 0 0;
-  opacity: 0;
-  animation: fadeIn 2s forwards 13s;
-}
-
-/* Balloon Styling */
-.baloons img {
-  display: inline-block;
-  position: absolute;
-  width: 80px;
-  animation: float 6s ease-in-out infinite;
-}
-
-.baloons img:nth-child(even) {
-  left: -10%;
-}
-
-.baloons img:nth-child(odd) {
-  right: -10%;
-}
-
-.baloons img:nth-child(3n + 0) {
-  left: 30%;
-}
-
-/* Float Animation for Balloons */
-@keyframes float {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
-  100% { transform: translateY(0); }
-}
-
-/* Circle Animation */
-.eight svg {
-  fill: #ffb88c;
-  width: 25px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  visibility: hidden;
-  z-index: -1;
-  opacity: 0;
-  animation: rotate 5s linear infinite, fadeIn 2s forwards 14s;
-}
-
-.eight svg:nth-child(1) { top: 7vh; left: 5vw; fill: #bd6ecf; }
-.eight svg:nth-child(2) { top: 23vh; left: 35vw; fill: #7dd175; }
-.eight svg:nth-child(3) { top: 33vh; left: 23vw; fill: #349d8b; }
-.eight svg:nth-child(4) { top: 43vh; left: 57vw; fill: #347a9d; }
-.eight svg:nth-child(5) { top: 68vh; left: 7vw; fill: #c66053; }
-.eight svg:nth-child(6) { top: 42vh; left: 77vw; fill: #bfaa40; }
-.eight svg:nth-child(7) { top: 68vh; left: 83vw; fill: #e3bae8; }
-.eight svg:nth-child(8) { top: 86vh; left: 37vw; fill: #8762cb; }
-.eight svg:nth-child(9) { top: 94vh; left: 87vw; fill: #9a90da; }
-
-/* Rotate Animation for Circles */
-@keyframes rotate {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* Outro Text Styling */
-.nine p {
-  font-size: 2rem;
-  font-weight: lighter;
-  opacity: 0;
-  animation: fadeIn 2s forwards 15s;
-}
-
-#replay {
-  z-index: 3;
-  cursor: pointer;
-  color: #fff;
-  text-decoration: underline;
-  opacity: 0;
-  animation: fadeIn 2s forwards 16s;
-}
-
-.last-smile {
-  font-size: 2.5rem;
-  opacity: 0;
-  animation: fadeIn 2s forwards 17s;
-}
-
-.weegen2-dp {
-  width: 120px;
-  border-radius: 50%;
-  margin-top: 1rem;
-  opacity: 0;
-  animation: fadeIn 2s forwards 18s;
-}
-
-/* Unmute Button Styling */
-.unmute-btn {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: #ff5e62;
-  color: #fff;
-  border: none;
-  border-radius: 50px;
-  padding: 0.5rem 1.5rem;
-  cursor: pointer;
-  font-size: 1rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  transition: background 0.3s ease;
-  opacity: 0; /* Initially hidden */
-  animation: fadeIn 2s forwards 19s;
-}
-
-.unmute-btn:hover {
-  background: #ff1a2c;
-}
-
-/* Media Queries */
-@media screen and (max-height: 1000px) {
-  .six .hat {
-    left: 40%;
-  }
-}
-
-@media screen and (max-height: 800px) {
-  .six .hat {
-    left: 37%;
-  }
-}
-
-@media screen and (max-height: 700px) {
-  .six .hat {
-    left: 32%;
-  }
-}
-
-@media screen and (max-height: 850px) and (max-width: 450px) {
-  .six .hat {
-    left: 32%;
-  }
-}
-
-@media screen and (max-width: 500px) {
-  .container {
-    width: 90%;
-  }
-
-  .four .text-box {
-    width: 90%;
-  }
-
-  .text-box .fake-btn {
-    right: 5px;
-    bottom: -38px;
-  }
-
-  .idea-5 span {
-    display: block;
-  }
-
-  .idea-6 span {
-    font-size: 10rem;
-  }
-
-  .six .hat {
-    width: 50px;
-    top: -20px;
-  }
-
-  .wish-hbd {
-    font-size: 2.2em;
-  }
-
-  .wish h5 {
-    font-size: 1.4rem;
-  }
-
-  .nine p {
-    font-size: 1.5rem;
-    font-weight: lighter;
-  }
-}
-    </style>
-</head>
-<body>
-    <!DOCTYPE html>
-<html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Happy Birthday!!! :)</title>
-    <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400" rel="stylesheet">
-    <link rel="shortcut icon" type="image/png" href="img/favicon.png" />
-    <link rel="stylesheet" href="style/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Happy Birthday!!! :)</title>
+  <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400" rel="stylesheet">
+  <link rel="shortcut icon" type="image/png" href="img/favicon.png" />
+  <link rel="stylesheet" href="style/style.css">
 </head>
 
 <body>
-    <div class="container">
-        <audio id="audio" src="audio/perfect.mp3" autoplay loop> </audio>
-        <div class="one">
-            <h1 class="one">
-                <span data-node-name="greeting">Hey</span>
-                <span data-node-name="name">Beautiful....</span>
-            </h1>
-            <p class="two" data-node-name="greetingText"></p>
-        </div>
-        <div class="three">
-            <p data-node-name="text1">It's your birthday!!! :D</p>
-        </div>
-        <div class="four">
-            <div class="text-box">
-                <p class="hbd-chatbox" data-node-name="textInChatBox">Happy birthday to you!! Yeee! Many many happy
-                    blah...</p>
-                <p class="fake-btn" data-node-name="sendButtonLabel">Send</p>
-            </div>
-        </div>
-        <div class="five">
-            <p class="idea-1" data-node-name="text2">That's what I was going to do.</p>
-            <p class="idea-2" data-node-name="text3">But then I stopped.</p>
-            <p class="idea-3">
-                <span data-node-name="text4">I realised, I wanted to do something</span>
-                <strong data-node-name="text4Adjective">special</strong>.
-            </p>
-            <p class="idea-4" data-node-name="text5Entry">Because,</p>
-            <p class="idea-5">
-                <span data-node-name="text5Content">You are Special</span>
-                <span class="smiley" data-node-name="smiley">:)</span>
-            </p>
-            <p class="idea-6">
-                <span data-node-name="bigTextPart1">S</span>
-                <span data-node-name="bigTextPart2">O</span>
-            </p>
-        </div>
-        <div class="six">
-            <img src="img/weegen2.png" alt="" class="weegen-dp" data-node-name="imagePath">
-            <img src="img/hat.svg" alt="" class="hat" id="hat">
-            <div class="wish">
-                <h3 class="wish-hbd" data-node-name="wishHeading">Happy Birthday  Mardhal!!!</h3>
-                <h5 data-node-name="wishText">May the js.prototypes always be with you! ;)</h5>
-            </div>
-        </div>
-        <div class="seven">
-            <div class="baloons">
-                <img src="img/ballon1.svg" alt="">
-                <img src="img/ballon2.svg" alt="">
-                <img src="img/ballon3.svg" alt="">
-                <img src="img/ballon2.svg" alt="">
-                <img src="img/ballon1.svg" alt="">
-                <img src="img/ballon3.svg" alt="">
-                <img src="img/ballon1.svg" alt="">
-                <img src="img/ballon3.svg" alt="">
-                <img src="img/ballon2.svg" alt="">
-                <img src="img/ballon1.svg" alt="">
-                <img src="img/ballon3.svg" alt="">
-                <img src="img/ballon1.svg" alt="">
-                <img src="img/ballon2.svg" alt="">
-                <img src="img/ballon3.svg" alt="">
-                <img src="img/ballon1.svg" alt="">
-                <img src="img/ballon3.svg" alt="">
-                <img src="img/ballon2.svg" alt="">
-                <img src="img/ballon1.svg" alt="">
-                <img src="img/ballon2.svg" alt="">
-                <img src="img/ballon3.svg" alt="">
-                <img src="img/ballon3.svg" alt="">
-                <img src="img/ballon2.svg" alt="">
-                <img src="img/ballon1.svg" alt="">
-                <img src="img/ballon3.svg" alt="">
-                <img src="img/ballon1.svg" alt="">
-                <img src="img/ballon2.svg" alt="">
-                <img src="img/ballon3.svg" alt="">
-                <img src="img/ballon1.svg" alt="">
-                <img src="img/ballon3.svg" alt="">
-                <img src="img/ballon2.svg" alt="">
-                <img src="img/ballon1.svg" alt="">
-                <img src="img/ballon2.svg" alt="">
-                <img src="img/ballon3.svg" alt="">
-            </div>
-        </div>
-        <div class="eight">
-            <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="20" cy="20" r="20" />
-            </svg>
-            <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="20" cy="20" r="20" />
-            </svg>
-            <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="20" cy="20" r="20" />
-            </svg>
-            <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="20" cy="20" r="20" />
-            </svg>
-            <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="20" cy="20" r="20" />
-            </svg>
-            <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="20" cy="20" r="20" />
-            </svg>
-            <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="20" cy="20" r="20" />
-            </svg>
-            <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="20" cy="20" r="20" />
-            </svg>
-            <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="20" cy="20" r="20" />
-            </svg>
-        </div>
-        <div class="nine">
-            <p data-node-name="outroText">Okay, now come back and tell me if you liked it.</p>
-            <p id="replay" data-node-name="replayText">Or click, if you want to watch it again.</p>
-            <p class="last-smile" data-node-name="outroSmiley">:)</p>
-        </div>
+  <div class="container">
+    <audio id="audio" src="audio/perfect.mp3" autoplay muted> </audio>
+    <div class="one">
+      <h1 class="one">
+        <span data-node-name="greeting">Hey</span>
+        <span data-node-name="name">Beautiful....</span>
+      </h1>
+      <p class="two" data-node-name="greetingText"></p>
     </div>
+    <div class="three">
+      <p data-node-name="text1">It's your birthday!!! :D</p>
+    </div>
+    <div class="four">
+      <div class="text-box">
+        <p class="hbd-chatbox" data-node-name="textInChatBox">Happy birthday to you!! Yeee! Many many happy blah...</p>
+        <p class="fake-btn" data-node-name="sendButtonLabel">Send</p>
+      </div>
+    </div>
+    <div class="five">
+      <p class="idea-1" data-node-name="text2">That's what I was going to do.</p>
+      <p class="idea-2" data-node-name="text3">But then I stopped.</p>
+      <p class="idea-3">
+        <span data-node-name="text4">I realised, I wanted to do something</span>
+        <strong data-node-name="text4Adjective">special</strong>.</p>
+      <p class="idea-4" data-node-name="text5Entry">Because,</p>
+      <p class="idea-5">
+        <span data-node-name="text5Content">You are Special</span>
+        <span class="smiley" data-node-name="smiley">:)</span>
+      </p>
+      <p class="idea-6">
+        <span data-node-name="bigTextPart1">S</span>
+        <span data-node-name="bigTextPart2">O</span>
+      </p>
+    </div>
+    <div class="six">
+      <img src="img/weegen2.png" alt="" class="weegen-dp" data-node-name="imagePath">
+      <img src="img/hat.svg" alt="" class="hat">
+      <div class="wish">
+        <h3 class="wish-hbd" data-node-name="wishHeading">Happy Birthday Mardhal!!!</h3>
+        <h5 data-node-name="wishText">May the js.prototypes always be with you! ;)</h5>
+      </div>
+    </div>
+    <div class="seven">
+      <div class="baloons">
+        <img src="img/ballon1.svg" alt="">
+        <img src="img/ballon2.svg" alt="">
+        <img src="img/ballon3.svg" alt="">
+        <img src="img/ballon2.svg" alt="">
+        <img src="img/ballon1.svg" alt="">
+        <img src="img/ballon3.svg" alt="">
+        <img src="img/ballon1.svg" alt="">
+        <img src="img/ballon3.svg" alt="">
+        <img src="img/ballon2.svg" alt="">
+        <img src="img/ballon1.svg" alt="">
+        <img src="img/ballon3.svg" alt="">
+        <img src="img/ballon1.svg" alt="">
+        <img src="img/ballon2.svg" alt="">
+        <img src="img/ballon3.svg" alt="">
+        <img src="img/ballon1.svg" alt="">
+        <img src="img/ballon3.svg" alt="">
+        <img src="img/ballon2.svg" alt="">
+        <img src="img/ballon1.svg" alt="">
+        <img src="img/ballon2.svg" alt="">
+        <img src="img/ballon3.svg" alt="">
+        <img src="img/ballon3.svg" alt="">
+        <img src="img/ballon2.svg" alt="">
+        <img src="img/ballon1.svg" alt="">
+        <img src="img/ballon3.svg" alt="">
+        <img src="img/ballon1.svg" alt="">
+        <img src="img/ballon2.svg" alt="">
+        <img src="img/ballon3.svg" alt="">
+        <img src="img/ballon1.svg" alt="">
+        <img src="img/ballon3.svg" alt="">
+        <img src="img/ballon2.svg" alt="">
+        <img src="img/ballon1.svg" alt="">
+        <img src="img/ballon2.svg" alt="">
+        <img src="img/ballon3.svg" alt="">
+      </div>
+    </div>
+    <div class="eight">
+      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="20" />
+      </svg>
+      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="20" />
+      </svg>
+      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="20" />
+      </svg>
+      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="20" />
+      </svg>
+      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="20" />
+      </svg>
+      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="20" />
+      </svg>
+      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="20" />
+      </svg>
+      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="20" />
+      </svg>
+      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="20" />
+      </svg>
+    </div>
+    <div class="nine">
+      <p data-node-name="outroText">Okay, now come back and tell me if you liked it.</p>
+      <p id="replay" data-node-name="replayText">Or click, if you want to watch it again.</p>
+      <p class="last-smile" data-node-name="outroSmiley">:)</p>
+      <img src="img/weegen.png" alt="" class="weegen2-dp" data-node-name="image2Path">
+    </div>
+  </div>
 </body>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
 <script type="application/javascript" src="script/main.js"></script>
 
-</html>
-
-    <audio id="myAudio" autoplay muted>
-        <source src="your-audio-file.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-
-    <script>
-        // Automatically unmute after the audio starts playing
-        window.addEventListener('load', function () {
-            const audioElement = document.getElementById('myAudio');
-
-            audioElement.play().then(() => {
-                // Unmute after the audio starts playing
-                audioElement.muted = false;
-            }).catch(error => {
-                console.log('Failed to play audio:', error);
-            });
-        });
-    </script>
-</body>
 </html>
